@@ -438,7 +438,12 @@ document.write(`
 <h2>Methods &amp; Results<a class="headerlink" href="#methods-results" title="Link to this heading">#</a></h2>
 <p>To explore whether the release season of a Disney movie impacts its box office performance, I used a dataset containing Disney film release dates and revenue figures. The analysis focused on cleaning and preparing the data, creating seasonal categories, and then comparing the average revenue across these seasons.</p>
 <p>Before we proceed, I will start by loading the necessary libaries and CSV files using pandas.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lets import all the required libraries needed for this analysis</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -448,6 +453,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>Here is what the original dataframe looks like:</p>
 <div class="cell docutils container">
@@ -688,7 +694,12 @@ document.write(`
 </div>
 </div>
 <p>Now that our function has been imported, we can go ahead and run the wrangling code.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wrangle the data</span>
 <span class="n">cleaned_movies_df</span> <span class="o">=</span> <span class="n">wrangle_disney_movies</span><span class="p">(</span><span class="n">disney_movies</span><span class="p">)</span>
@@ -696,6 +707,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -853,7 +865,12 @@ document.write(`
 </div></div></div>
 </div>
 <p>With the cleaned data prepared, we now proceed to calculate summary statistics that will help us understand box office revenue trends by season. To lessen the effect of unusually high or low values, we calculate the median total gross for each season.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count movies per season</span>
 <span class="n">season_counts</span> <span class="o">=</span> <span class="n">cleaned_movies_df</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -874,6 +891,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -923,7 +941,12 @@ document.write(`
 </div></div></div>
 </div>
 <p>To clearly illustrate these findings, we employ Altair for visualization. The initial chart compares median total revenue across seasons, making it easier to discern seasonal trends.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">season_median_revenue</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winter&#39;</span><span class="p">,</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="s1">&#39;Fall&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Season&#39;</span><span class="p">),</span>
@@ -937,6 +960,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html">
 <div id="altair-viz-f1cdcf6f3d964791a8836213a53467bd"></div>
@@ -991,7 +1015,12 @@ document.write(`
 </div>
 <p><strong>Figure 1:</strong> Median Disney Box Office Revenue by Season.</p>
 <p>To put the revenue data into perspective, we also look at how many movies were released in each season. The following bar chart visualizes the seasonal distribution of movie releases.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">season_counts</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">cleaned_movies_df</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span>
@@ -1012,6 +1041,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html">
 <div id="altair-viz-1dd7702baee042cab8c38ca6b5c118da"></div>
@@ -1075,7 +1105,12 @@ document.write(`
 </div>
 </div>
 <p>Now, let’s run the new wrangling code, and calculate the median gross earnings by season.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wrangle the data</span>
 <span class="n">cleaned_december_df</span> <span class="o">=</span> <span class="n">december_disney_movies</span><span class="p">(</span><span class="n">disney_movies</span><span class="p">)</span>
@@ -1099,6 +1134,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -1153,7 +1189,12 @@ document.write(`
 </div></div></div>
 </div>
 <p>Using Altair, we can better discriminate the median gross earnings in the season <code class="docutils literal notranslate"><span class="pre">Christmas</span></code>.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">december_season_median_revenue</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
     <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winter&#39;</span><span class="p">,</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="s1">&#39;Fall&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Season&#39;</span><span class="p">),</span>
@@ -1167,6 +1208,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html">
 <div id="altair-viz-78ab40a5070e4d30b99f89b12e604a33"></div>
