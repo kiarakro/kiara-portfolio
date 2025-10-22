@@ -142,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="cover_letter.html">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -174,18 +174,19 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="cover_letter.html">
-                    About Me
+                <a class="reference internal" href="intro.html">
+                    Digital Portfolio
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cover_letter.html">About Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CV.html">Curriculum Vitae</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
-
-
-
-
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples of Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Impact of Release Timing on Disney Movie Revenues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="analysis_example_trees.html">Analyzing Tree Traits Across Vancouver’s Neighborhoods</a></li>
 </ul>
 
@@ -382,20 +383,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
 </ul>
 </li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -409,15 +408,14 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="when-to-release-the-impact-of-release-timing-on-disney-movie-revenues">
 <h1>When to Release? The Impact of Release Timing on Disney Movie Revenues<a class="headerlink" href="#when-to-release-the-impact-of-release-timing-on-disney-movie-revenues" title="Link to this heading">#</a></h1>
 <p>Author: Kiara McCartan</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <section id="question-s-of-interest">
-<h2>Question(s) of Interest<a class="headerlink" href="#question-s-of-interest" title="Link to this heading">#</a></h2>
+<h3>Question(s) of Interest<a class="headerlink" href="#question-s-of-interest" title="Link to this heading">#</a></h3>
 <p>This project intends to find the correlation between seasons and Disney movie revenues, in order to determine the best time of year to release Disney films. Analyzing seasonal trends in this manner demonstrates whether seasonal release timing correlates with increased box office performance.</p>
 </section>
 <section id="dataset-description">
-<h2>Dataset Description<a class="headerlink" href="#dataset-description" title="Link to this heading">#</a></h2>
+<h3>Dataset Description<a class="headerlink" href="#dataset-description" title="Link to this heading">#</a></h3>
 <p>The dataset used in this analysis is titled disney_movies_total_gross.csv. It is sourced from data.world and compiled by FiveThirtyEight. It contains box office data for movies released under the Disney brand from 1937 through 2020.</p>
 <p>Each row corresponds to a film and includes data on:</p>
 <ul class="simple">
@@ -436,8 +434,8 @@ document.write(`
 <p>This dataset provides a solid foundation to explore how the release season may influence box office performance, revealing whether certain times of year tend to yield higher-grossing films.</p>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="methods-results">
-<h1>Methods &amp; Results<a class="headerlink" href="#methods-results" title="Link to this heading">#</a></h1>
+<section id="methods-results">
+<h2>Methods &amp; Results<a class="headerlink" href="#methods-results" title="Link to this heading">#</a></h2>
 <p>To explore whether the release season of a Disney movie impacts its box office performance, I used a dataset containing Disney film release dates and revenue figures. The analysis focused on cleaning and preparing the data, creating seasonal categories, and then comparing the average revenue across these seasons.</p>
 <p>Before we proceed, I will start by loading the necessary libaries and CSV files using pandas.</p>
 <div class="cell docutils container">
@@ -1224,17 +1222,17 @@ document.write(`
 <p><strong>figure 3:</strong> Median Disney Box Office Revenue Including Christmas</p>
 <p>These findings tell us a new story, that Christmas surpasses Summer in box office revenue.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="discussion">
-<h1>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h1>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
 <p>In this analysis, I explored how the release season affects Disney movies’ box office revenue. The results show that, between the four seasons of summer, winter, fall and spring, movies released in summer generally earn the highest median total gross, while spring releases tend to perform the worst. Interestingly, more movies are released during the seasons with lower average revenue, such as fall and spring. This could suggest that Disney schedules more releases in these seasons to compensate for lower individual movie earnings.</p>
 <p>When the data is filtered to show the median gross earnings with all four seasons and the month of December singled out as it’s own season, the results shift to show that Christmas far surpasses the earnings in summer. This may suggest that Disney saves some of their bigger box office hits for Christmas break.</p>
 <p>These finding raises further questions about Disney’s release strategy—whether they deliberately space out big hits and smaller releases by season, or if other factors are at play. Future analyses could explore how genre or marketing budget varies by season to better understand these patterns.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="references">
-<h1>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h1>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <p>Not all of the work in this notebook is original. Some techniques and ideas were informed by publicly available resources and course materials. These elements were used solely for educational purposes.</p>
 <section id="resources-used">
-<h2>Resources Used<a class="headerlink" href="#resources-used" title="Link to this heading">#</a></h2>
+<h3>Resources Used<a class="headerlink" href="#resources-used" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Data Source</p>
 <ul>
@@ -1262,6 +1260,7 @@ document.write(`
 </ul>
 </li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -1329,20 +1328,18 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
 </ul>
 </li>
 </ul>
-
   </nav></div>
 
 </div></div>
