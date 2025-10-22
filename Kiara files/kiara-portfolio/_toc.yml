@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: cover_letter
+
+chapters:
+  - file: CV
+    title: Curriculum Vitae
+  - file: analysis_example_disney
+    title: The Impact of Release Timing on Disney Movie Revenues
+  - file: analysis_example_trees
+    title: Analyzing Tree Traits Across Vancouver’s Neighborhoods
+
