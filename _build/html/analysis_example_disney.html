@@ -1,0 +1,1399 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>When to Release? The Impact of Release Timing on Disney Movie Revenues &#8212; Kiara McCartan - Data Science Portfolio</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analysis_example_disney';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Mapping Tree Diversity: Analyzing Tree Traits Across Vancouver’s Neighborhoods" href="analysis_example_trees.html" />
+    <link rel="prev" title="Curriculum Vitae" href="CV.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="cover_letter.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/profile.jpg" class="logo__image only-light" alt="Kiara McCartan - Data Science Portfolio - Home"/>
+    <script>document.write(`<img src="_static/profile.jpg" class="logo__image only-dark" alt="Kiara McCartan - Data Science Portfolio - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="cover_letter.html">
+                    About Me
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CV.html">Curriculum Vitae</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="analysis_example_trees.html">Analyzing Tree Traits Across Vancouver’s Neighborhoods</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fanalysis_example_disney.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/analysis_example_disney.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>When to Release? The Impact of Release Timing on Disney Movie Revenues</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="when-to-release-the-impact-of-release-timing-on-disney-movie-revenues">
+<h1>When to Release? The Impact of Release Timing on Disney Movie Revenues<a class="headerlink" href="#when-to-release-the-impact-of-release-timing-on-disney-movie-revenues" title="Link to this heading">#</a></h1>
+<p>Author: Kiara McCartan</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<section id="question-s-of-interest">
+<h2>Question(s) of Interest<a class="headerlink" href="#question-s-of-interest" title="Link to this heading">#</a></h2>
+<p>This project intends to find the correlation between seasons and Disney movie revenues, in order to determine the best time of year to release Disney films. Analyzing seasonal trends in this manner demonstrates whether seasonal release timing correlates with increased box office performance.</p>
+</section>
+<section id="dataset-description">
+<h2>Dataset Description<a class="headerlink" href="#dataset-description" title="Link to this heading">#</a></h2>
+<p>The dataset used in this analysis is titled disney_movies_total_gross.csv. It is sourced from data.world and compiled by FiveThirtyEight. It contains box office data for movies released under the Disney brand from 1937 through 2020.</p>
+<p>Each row corresponds to a film and includes data on:</p>
+<ul class="simple">
+<li><p><strong>movie_title:</strong> The name of the movie.</p></li>
+<li><p><strong>release_date:</strong> The U.S. theatrical release date.</p></li>
+<li><p><strong>genre:</strong> The genre classification (e.g., Adventure, Drama, Musical).</p></li>
+<li><p><strong>MPAA_rating:</strong> The movie’s official rating (e.g., G, PG, PG-13).</p></li>
+<li><p><strong>total_gross:</strong> The domestic box office gross in U.S. dollars (not adjusted for inflation).</p></li>
+<li><p><strong>inflation_adjusted_gross:</strong> The total gross revenue adjusted for inflation to current dollars.</p></li>
+</ul>
+<p>For this project, additional columns were derived from the original data:</p>
+<ul class="simple">
+<li><p><strong>release_month:</strong> The month (1–12) the movie was released.</p></li>
+<li><p><strong>season:</strong> A new categorical variable based on the release month, grouping each film into a season: Winter (Dec–Feb), Spring (Mar–May), Summer (Jun–Aug), or Fall (Sep–Nov).</p></li>
+</ul>
+<p>This dataset provides a solid foundation to explore how the release season may influence box office performance, revealing whether certain times of year tend to yield higher-grossing films.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="methods-results">
+<h1>Methods &amp; Results<a class="headerlink" href="#methods-results" title="Link to this heading">#</a></h1>
+<p>To explore whether the release season of a Disney movie impacts its box office performance, I used a dataset containing Disney film release dates and revenue figures. The analysis focused on cleaning and preparing the data, creating seasonal categories, and then comparing the average revenue across these seasons.</p>
+<p>Before we proceed, I will start by loading the necessary libaries and CSV files using pandas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lets import all the required libraries needed for this analysis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">altair</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">alt</span>
+
+<span class="n">disney_movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/disney_movies_total_gross.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is what the original dataframe looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disney_movies</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>movie_title</th>
+      <th>release_date</th>
+      <th>genre</th>
+      <th>MPAA_rating</th>
+      <th>total_gross</th>
+      <th>inflation_adjusted_gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Snow White and the Seven Dwarfs</td>
+      <td>Dec 21, 1937</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>$184,925,485</td>
+      <td>$5,228,953,251</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Pinocchio</td>
+      <td>Feb 9, 1940</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>$84,300,000</td>
+      <td>$2,188,229,052</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Fantasia</td>
+      <td>Nov 13, 1940</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>$83,320,000</td>
+      <td>$2,187,090,808</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Song of the South</td>
+      <td>Nov 12, 1946</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>$65,000,000</td>
+      <td>$1,078,510,579</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cinderella</td>
+      <td>Feb 15, 1950</td>
+      <td>Drama</td>
+      <td>G</td>
+      <td>$85,000,000</td>
+      <td>$920,608,730</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>574</th>
+      <td>The Light Between Oceans</td>
+      <td>Sep 2, 2016</td>
+      <td>Drama</td>
+      <td>PG-13</td>
+      <td>$12,545,979</td>
+      <td>$12,545,979</td>
+    </tr>
+    <tr>
+      <th>575</th>
+      <td>Queen of Katwe</td>
+      <td>Sep 23, 2016</td>
+      <td>Drama</td>
+      <td>PG</td>
+      <td>$8,874,389</td>
+      <td>$8,874,389</td>
+    </tr>
+    <tr>
+      <th>576</th>
+      <td>Doctor Strange</td>
+      <td>Nov 4, 2016</td>
+      <td>Adventure</td>
+      <td>PG-13</td>
+      <td>$232,532,923</td>
+      <td>$232,532,923</td>
+    </tr>
+    <tr>
+      <th>577</th>
+      <td>Moana</td>
+      <td>Nov 23, 2016</td>
+      <td>Adventure</td>
+      <td>PG</td>
+      <td>$246,082,029</td>
+      <td>$246,082,029</td>
+    </tr>
+    <tr>
+      <th>578</th>
+      <td>Rogue One: A Star Wars Story</td>
+      <td>Dec 16, 2016</td>
+      <td>Adventure</td>
+      <td>PG-13</td>
+      <td>$529,483,936</td>
+      <td>$529,483,936</td>
+    </tr>
+  </tbody>
+</table>
+<p>579 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>This is a lot of information. For better readability, let’s limit it to the first five rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">disney_movies</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>movie_title</th>
+      <th>release_date</th>
+      <th>genre</th>
+      <th>MPAA_rating</th>
+      <th>total_gross</th>
+      <th>inflation_adjusted_gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Snow White and the Seven Dwarfs</td>
+      <td>Dec 21, 1937</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>$184,925,485</td>
+      <td>$5,228,953,251</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Pinocchio</td>
+      <td>Feb 9, 1940</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>$84,300,000</td>
+      <td>$2,188,229,052</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Fantasia</td>
+      <td>Nov 13, 1940</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>$83,320,000</td>
+      <td>$2,187,090,808</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Song of the South</td>
+      <td>Nov 12, 1946</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>$65,000,000</td>
+      <td>$1,078,510,579</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cinderella</td>
+      <td>Feb 15, 1950</td>
+      <td>Drama</td>
+      <td>G</td>
+      <td>$85,000,000</td>
+      <td>$920,608,730</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In order to prepare the data to reflect the question we want answered, we will need to create a function that:</p>
+<ul class="simple">
+<li><p>Converts the release_date column to datetime format.</p></li>
+<li><p>Extracts the release month from the date.</p></li>
+<li><p>Categorizes each month into one of the four seasons (Winter, Spring, Summer, Fall).</p></li>
+<li><p>Cleans the revenue columns by removing dollar signs and commas and converting them to numeric types.</p></li>
+</ul>
+<p>Let’s start by importing the function from the <code class="docutils literal notranslate"><span class="pre">function_script.py</span></code> file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">function_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">wrangle_disney_movies</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that our function has been imported, we can go ahead and run the wrangling code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wrangle the data</span>
+<span class="n">cleaned_movies_df</span> <span class="o">=</span> <span class="n">wrangle_disney_movies</span><span class="p">(</span><span class="n">disney_movies</span><span class="p">)</span>
+<span class="n">cleaned_movies_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>movie_title</th>
+      <th>release_date</th>
+      <th>genre</th>
+      <th>MPAA_rating</th>
+      <th>total_gross</th>
+      <th>inflation_adjusted_gross</th>
+      <th>release_month</th>
+      <th>season</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Snow White and the Seven Dwarfs</td>
+      <td>1937-12-21</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>184925485.0</td>
+      <td>5.228953e+09</td>
+      <td>12</td>
+      <td>Winter</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Pinocchio</td>
+      <td>1940-02-09</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>84300000.0</td>
+      <td>2.188229e+09</td>
+      <td>2</td>
+      <td>Winter</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Fantasia</td>
+      <td>1940-11-13</td>
+      <td>Musical</td>
+      <td>G</td>
+      <td>83320000.0</td>
+      <td>2.187091e+09</td>
+      <td>11</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Song of the South</td>
+      <td>1946-11-12</td>
+      <td>Adventure</td>
+      <td>G</td>
+      <td>65000000.0</td>
+      <td>1.078511e+09</td>
+      <td>11</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cinderella</td>
+      <td>1950-02-15</td>
+      <td>Drama</td>
+      <td>G</td>
+      <td>85000000.0</td>
+      <td>9.206087e+08</td>
+      <td>2</td>
+      <td>Winter</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>574</th>
+      <td>The Light Between Oceans</td>
+      <td>2016-09-02</td>
+      <td>Drama</td>
+      <td>PG-13</td>
+      <td>12545979.0</td>
+      <td>1.254598e+07</td>
+      <td>9</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>575</th>
+      <td>Queen of Katwe</td>
+      <td>2016-09-23</td>
+      <td>Drama</td>
+      <td>PG</td>
+      <td>8874389.0</td>
+      <td>8.874389e+06</td>
+      <td>9</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>576</th>
+      <td>Doctor Strange</td>
+      <td>2016-11-04</td>
+      <td>Adventure</td>
+      <td>PG-13</td>
+      <td>232532923.0</td>
+      <td>2.325329e+08</td>
+      <td>11</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>577</th>
+      <td>Moana</td>
+      <td>2016-11-23</td>
+      <td>Adventure</td>
+      <td>PG</td>
+      <td>246082029.0</td>
+      <td>2.460820e+08</td>
+      <td>11</td>
+      <td>Fall</td>
+    </tr>
+    <tr>
+      <th>578</th>
+      <td>Rogue One: A Star Wars Story</td>
+      <td>2016-12-16</td>
+      <td>Adventure</td>
+      <td>PG-13</td>
+      <td>529483936.0</td>
+      <td>5.294839e+08</td>
+      <td>12</td>
+      <td>Winter</td>
+    </tr>
+  </tbody>
+</table>
+<p>579 rows × 8 columns</p>
+</div></div></div>
+</div>
+<p>With the cleaned data prepared, we now proceed to calculate summary statistics that will help us understand box office revenue trends by season. To lessen the effect of unusually high or low values, we calculate the median total gross for each season.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count movies per season</span>
+<span class="n">season_counts</span> <span class="o">=</span> <span class="n">cleaned_movies_df</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Average total gross by season</span>
+<span class="n">season_avg_revenue</span> <span class="o">=</span> <span class="p">(</span><span class="n">cleaned_movies_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)[</span><span class="s1">&#39;total_gross&#39;</span><span class="p">]</span>
+                                       <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                     <span class="p">)</span>
+
+<span class="c1"># Median total gross by season</span>
+<span class="n">season_median_revenue</span> <span class="o">=</span> <span class="p">(</span><span class="n">cleaned_movies_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)[</span><span class="s1">&#39;total_gross&#39;</span><span class="p">]</span>
+                                          <span class="o">.</span><span class="n">median</span><span class="p">()</span>
+                                          <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                        <span class="p">)</span>
+<span class="n">season_counts</span>
+<span class="n">season_avg_revenue</span>
+<span class="n">season_median_revenue</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>season</th>
+      <th>total_gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Fall</td>
+      <td>27800112.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Spring</td>
+      <td>24242464.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Summer</td>
+      <td>46573027.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Winter</td>
+      <td>32349264.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>To clearly illustrate these findings, we employ Altair for visualization. The initial chart compares median total revenue across seasons, making it easier to discern seasonal trends.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">season_median_revenue</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winter&#39;</span><span class="p">,</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="s1">&#39;Fall&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Season&#39;</span><span class="p">),</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;total_gross:Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Median Total Gross ($)&#39;</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Median Disney Box Office Revenue by Season&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-f1cdcf6f3d964791a8836213a53467bd"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-f1cdcf6f3d964791a8836213a53467bd") {
+      outputDiv = document.getElementById("altair-viz-f1cdcf6f3d964791a8836213a53467bd");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-73405daa6fffc9cb4d25ed92ecacf789"}, "mark": "bar", "encoding": {"color": {"type": "nominal", "field": "season", "legend": null}, "x": {"type": "nominal", "field": "season", "sort": ["Winter", "Spring", "Summer", "Fall"], "title": "Season"}, "y": {"type": "quantitative", "field": "total_gross", "title": "Median Total Gross ($)"}}, "height": 300, "title": "Median Disney Box Office Revenue by Season", "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-73405daa6fffc9cb4d25ed92ecacf789": [{"season": "Fall", "total_gross": 27800112.5}, {"season": "Spring", "total_gross": 24242464.0}, {"season": "Summer", "total_gross": 46573027.0}, {"season": "Winter", "total_gross": 32349264.0}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p><strong>Figure 1:</strong> Median Disney Box Office Revenue by Season.</p>
+<p>To put the revenue data into perspective, we also look at how many movies were released in each season. The following bar chart visualizes the seasonal distribution of movie releases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">season_counts</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">cleaned_movies_df</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">season_counts</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winter&#39;</span><span class="p">,</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="s1">&#39;Fall&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Season&#39;</span><span class="p">),</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count:Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Number of Movies Released&#39;</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;season:N&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Number of Disney Movies Released by Season&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-1dd7702baee042cab8c38ca6b5c118da"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-1dd7702baee042cab8c38ca6b5c118da") {
+      outputDiv = document.getElementById("altair-viz-1dd7702baee042cab8c38ca6b5c118da");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-fbaa2888c89223d349463cb8c33983f9"}, "mark": "bar", "encoding": {"color": {"type": "nominal", "field": "season"}, "x": {"type": "nominal", "field": "season", "sort": ["Winter", "Spring", "Summer", "Fall"], "title": "Season"}, "y": {"type": "quantitative", "field": "count", "title": "Number of Movies Released"}}, "height": 300, "title": "Number of Disney Movies Released by Season", "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-fbaa2888c89223d349463cb8c33983f9": [{"season": "Spring", "count": 152}, {"season": "Fall", "count": 152}, {"season": "Summer", "count": 143}, {"season": "Winter", "count": 132}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p><strong>Figure 1:</strong> Number of Disney Movies Released by Season</p>
+<p>The first bar chart shows that summer releases had the highest average total gross, followed by winter, fall, and spring, suggesting higher earnings during summer months. The chart of movie release counts adds context by showing how release volume varies by season, which may also influence revenue patterns.</p>
+<p>Now how do these revenues change when the month of December is considered it’s own season? I’ve created a separate function script specifically for this so we can view how the median gross revenues are influenced by Christmas break. Let’s import the function <code class="docutils literal notranslate"><span class="pre">december_function_script.py</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">december_function_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">december_disney_movies</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s run the new wrangling code, and calculate the median gross earnings by season.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Wrangle the data</span>
+<span class="n">cleaned_december_df</span> <span class="o">=</span> <span class="n">december_disney_movies</span><span class="p">(</span><span class="n">disney_movies</span><span class="p">)</span>
+
+<span class="c1"># Count movies per season</span>
+<span class="n">december_season_counts</span> <span class="o">=</span> <span class="n">cleaned_december_df</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Average total gross by season</span>
+<span class="n">december_season_avg_revenue</span> <span class="o">=</span> <span class="p">(</span><span class="n">cleaned_december_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)[</span><span class="s1">&#39;total_gross&#39;</span><span class="p">]</span>
+                                         <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                              <span class="p">)</span>
+
+<span class="c1"># Median total gross by season</span>
+<span class="n">december_season_median_revenue</span> <span class="o">=</span> <span class="p">(</span><span class="n">cleaned_december_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;season&#39;</span><span class="p">)[</span><span class="s1">&#39;total_gross&#39;</span><span class="p">]</span>
+                                            <span class="o">.</span><span class="n">median</span><span class="p">()</span>
+                                            <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                                 <span class="p">)</span>
+<span class="n">december_season_counts</span>
+<span class="n">december_season_avg_revenue</span>
+<span class="n">december_season_median_revenue</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>season</th>
+      <th>total_gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Christmas</td>
+      <td>49074987.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Fall</td>
+      <td>27800112.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Spring</td>
+      <td>24242464.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Summer</td>
+      <td>46573027.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Winter</td>
+      <td>27688592.5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Using Altair, we can better discriminate the median gross earnings in the season <code class="docutils literal notranslate"><span class="pre">Christmas</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">december_season_median_revenue</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Winter&#39;</span><span class="p">,</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="s1">&#39;Fall&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Season&#39;</span><span class="p">),</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;total_gross:Q&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Median Total Gross ($)&#39;</span><span class="p">),</span>
+    <span class="n">color</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;season:N&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Median Disney Box Office Revenue Including Christmas&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-78ab40a5070e4d30b99f89b12e604a33"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-78ab40a5070e4d30b99f89b12e604a33") {
+      outputDiv = document.getElementById("altair-viz-78ab40a5070e4d30b99f89b12e604a33");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-3285372d3fd9093d8d4092628717101f"}, "mark": "bar", "encoding": {"color": {"type": "nominal", "field": "season", "legend": null}, "x": {"type": "nominal", "field": "season", "sort": ["Winter", "Spring", "Summer", "Fall"], "title": "Season"}, "y": {"type": "quantitative", "field": "total_gross", "title": "Median Total Gross ($)"}}, "height": 300, "title": "Median Disney Box Office Revenue Including Christmas", "width": 500, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-3285372d3fd9093d8d4092628717101f": [{"season": "Christmas", "total_gross": 49074987.0}, {"season": "Fall", "total_gross": 27800112.5}, {"season": "Spring", "total_gross": 24242464.0}, {"season": "Summer", "total_gross": 46573027.0}, {"season": "Winter", "total_gross": 27688592.5}]}}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p><strong>figure 3:</strong> Median Disney Box Office Revenue Including Christmas</p>
+<p>These findings tell us a new story, that Christmas surpasses Summer in box office revenue.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="discussion">
+<h1>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h1>
+<p>In this analysis, I explored how the release season affects Disney movies’ box office revenue. The results show that, between the four seasons of summer, winter, fall and spring, movies released in summer generally earn the highest median total gross, while spring releases tend to perform the worst. Interestingly, more movies are released during the seasons with lower average revenue, such as fall and spring. This could suggest that Disney schedules more releases in these seasons to compensate for lower individual movie earnings.</p>
+<p>When the data is filtered to show the median gross earnings with all four seasons and the month of December singled out as it’s own season, the results shift to show that Christmas far surpasses the earnings in summer. This may suggest that Disney saves some of their bigger box office hits for Christmas break.</p>
+<p>These finding raises further questions about Disney’s release strategy—whether they deliberately space out big hits and smaller releases by season, or if other factors are at play. Future analyses could explore how genre or marketing budget varies by season to better understand these patterns.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="references">
+<h1>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h1>
+<p>Not all of the work in this notebook is original. Some techniques and ideas were informed by publicly available resources and course materials. These elements were used solely for educational purposes.</p>
+<section id="resources-used">
+<h2>Resources Used<a class="headerlink" href="#resources-used" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Data Source</p>
+<ul>
+<li><p>The Disney movies dataset was curated by FiveThirtyEight, which provided historical box office revenue and release information.</p></li>
+</ul>
+</li>
+<li><p>Data Wrangling Approach</p>
+<ul>
+<li><p>Much of the data cleaning and transformation logic—especially around date formatting, feature extraction, and string manipulation—was informed by techniques learned in the “Programming in Python” course from the Key Capabilities in Data Science certificate.</p></li>
+</ul>
+</li>
+<li><p>Data Visualization</p>
+<ul>
+<li><p>Altair was used for all visualizations. Chart design and syntax were guided by the Altair documentation and various examples found on Towards Data Science.</p></li>
+</ul>
+</li>
+<li><p>Code Formatting</p>
+<ul>
+<li><p>All Python scripts and notebook code cells were formatted using Black (<a class="github reference external" href="https://github.com/psf/black">psf/black</a>) to ensure consistent and clean style.</p></li>
+</ul>
+</li>
+<li><p>Attribution</p>
+<ul>
+<li><p>Parts of the data wrangling function were developed with guidance from ChatGPT to improve structure, docstring formatting, and error handling. All logic and implementation were reviewed and modified by me.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-jb-env-py"
+        },
+        kernelOptions: {
+            name: "conda-env-jb-env-py",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-jb-env-py'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="CV.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Curriculum Vitae</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="analysis_example_trees.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mapping Tree Diversity: Analyzing Tree Traits Across Vancouver’s Neighborhoods</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">When to Release? The Impact of Release Timing on Disney Movie Revenues</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-s-of-interest">Question(s) of Interest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-description">Dataset Description</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-results">Methods &amp; Results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-used">Resources Used</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kiara McCartan
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
